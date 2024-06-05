@@ -382,9 +382,9 @@ def generateMAMEConfigs(playersControllers, system, rom, guns):
     # By default, will ignore standalone MAME's art paths.
     if system.config['core'] != 'same_cdi':
         if not (system.isOptSet("sharemameart") and not system.getOptBoolean('sharemameart')):
-            artPath = "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/lr-mame/artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/"
+            artPath = "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/{}/artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/".format(coreCfgBiosPath)
         else:
-            artPath = "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/lr-mame/artwork/"
+            artPath = "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/{}/artwork/".format(coreCfgBiosPath)
         if not system.name == "ti99":
             commandLine += [ '-artpath', artPath ]
 
