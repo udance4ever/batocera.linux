@@ -51,10 +51,20 @@ def generateMAMEConfigs(playersControllers, system, rom, guns):
     romDrivername = os.path.splitext(romBasename)[0]
     specialController = 'none'
 
-    if system.config['core'] in [ 'mame', 'mess', 'mamevirtual' ]:
-        corePath = 'lr-' + system.config['core']
-    else:
-        corePath = system.config['core']
+    # lr-mame, mame0139 & mame078plus support
+    match system.config['core']:
+        case 'mame' | 'mess' | 'mamevirtual':
+            corePath = 'lr-' + system.config['core']
+            coreCfgBiosPath = 'mame' # special case
+        case 'mame0139':
+            corePath = 'mame2010'
+            coreCfgBiosPath = corePath
+        case 'mame078plus':
+            corePath = 'mame2003-plus'
+            coreCfgBiosPath = corePath
+        case _:
+            corePath = system.config['core']
+            coreCfgBiosPath = 'mame' # default
 
     if system.name in [ 'mame', 'neogeo', 'lcdgames', 'plugnplay', 'vis' ]:
         # Set up command line for basic systems
@@ -62,7 +72,7 @@ def generateMAMEConfigs(playersControllers, system, rom, guns):
         if system.getOptBoolean("customcfg"):
             cfgPath = "/userdata/system/configs/{}/custom/".format(corePath)
         else:
-            cfgPath = "/userdata/saves/mame/mame/cfg/"
+            cfgPath = "/userdata/saves/mame/{}/cfg/".format(coreCfgBiosPath)
         if not os.path.exists(cfgPath):
             os.makedirs(cfgPath)
         if system.name == 'vis':
@@ -70,7 +80,12 @@ def generateMAMEConfigs(playersControllers, system, rom, guns):
         else:
             commandLine += [ romDrivername ]
         commandLine += [ '-cfg_directory', cfgPath ]
-        commandLine += [ '-rompath', romDirname + ';/userdata/bios/' ]
+
+        if system.name == 'mame':
+            commandLine += [ '-rompath', romDirname + ";/userdata/bios/{}/;/userdata/bios/".format(coreCfgBiosPath) ]
+        else:
+            commandLine += [ '-rompath', romDirname + ';/userdata/bios/' ]
+
         pluginsToLoad = []
         if not (system.isOptSet("hiscoreplugin") and system.getOptBoolean("hiscoreplugin") == False):
             pluginsToLoad += [ "hiscore" ]

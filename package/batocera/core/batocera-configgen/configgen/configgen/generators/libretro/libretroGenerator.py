@@ -80,6 +80,7 @@ class LibretroGenerator(Generator):
                 else:
                     lightgun = True
             libretroControllers.writeControllersConfig(retroconfig, system, playersControllers, lightgun)
+
             # force pathes
             libretroRetroarchCustom.generateRetroarchCustomPathes(retroconfig)
             # Write configuration to retroarchcustom.cfg
@@ -345,12 +346,9 @@ class LibretroGenerator(Generator):
             rom = f"{directory_path}/{first_line}"
                 
         # Use command line instead of ROM file for MAME variants
-        if system.config['core'] in [ 'mame', 'mess', 'mamevirtual', 'same_cdi' ]:
+        if system.config['core'] in [ 'mame', 'mame0139', 'mame078plus', 'mess', 'mamevirtual', 'same_cdi' ]:
             dontAppendROM = True
-            if system.config['core'] in [ 'mame', 'mess', 'mamevirtual' ]:
-                corePath = 'lr-' + system.config['core']
-            else:
-                corePath = system.config['core']
+	    # $$$ .cmd file isn't created when called with core == mame0139 (and probably mame078plus)
             commandArray.append(f'/var/run/cmdfiles/{os.path.splitext(os.path.basename(rom))[0]}.cmd')
 
         if dontAppendROM == False:
