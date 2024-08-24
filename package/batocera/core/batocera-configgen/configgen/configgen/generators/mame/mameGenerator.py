@@ -37,6 +37,9 @@ class MameGenerator(Generator):
         (romName, romExt) = os.path.splitext(romBasename)
 
         softDir = "/var/run/mame_software/"
+        if not os.access(softDir, os.W_OK):
+            softDir = "/tmp/mame_software/"
+
         softList = ""
         messModel = ""
         specialController = "none"
@@ -70,6 +73,9 @@ class MameGenerator(Generator):
 
         if system.isOptSet("softList") and system.config["softList"] != "none":
             softList = system.config["softList"]
+        elif system.name == 'coco':
+            # $$$ until we get `batocera-settings-get` built for aarch64, force softList for coco (for testing)
+            softList = "coco_flop"
         else:
             softList = ""
 
@@ -80,7 +86,16 @@ class MameGenerator(Generator):
             if os.path.exists('/userdata/roms/fmtowns/{}.zip'.format(romParentPath)):
                 softList = 'fmtowns_cd'
 
-        commandArray =  [ "/usr/bin/mame/mame" ]
+	# $$$ it would be a good idea to abstract this out to batoceraFile.py perhaps (there is 2nd instance in getMameMachineSize())
+        if os.path.isdir('/usr/bin/mame'):
+             mameInstallRoot = "/usr/bin/mame/"
+             commandArray =  [ mameInstallRoot + "mame" ]
+        else:
+	     # Asahi / Fedora
+             mameInstallRoot = "/usr/share/mame/"
+             commandArray =  [ "/usr/bin/mame" ]
+
+
         # MAME options used here are explained as it's not always straightforward
         # A lot more options can be configured, just run mame -showusage and have a look
         commandArray += [ "-skip_gameinfo" ]
@@ -91,14 +106,14 @@ class MameGenerator(Generator):
                 commandArray += [ "-rompath", f'"{romDirname};/userdata/bios/mame/;/userdata/bios/;/userdata/roms/mame/;/var/run/mame_software/"' ]
             else:
                 commandArray += [ "-rompath", f'"{romDirname};/userdata/bios/mame/;/userdata/bios/;/userdata/roms/mame/"' ]
-        
+
         # MAME various paths we can probably do better
-        commandArray += [ "-bgfx_path",    "/usr/bin/mame/bgfx/" ]          # Core bgfx files can be left on ROM filesystem
-        commandArray += [ "-fontpath",     "/usr/bin/mame/" ]               # Fonts can be left on ROM filesystem
-        commandArray += [ "-languagepath", "/usr/bin/mame/language/" ]      # Translations can be left on ROM filesystem
-        commandArray += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/plugins" ]
+        commandArray += [ "-bgfx_path",    mameInstallRoot + "bgfx/" ]          # Core bgfx files can be left on ROM filesystem
+        commandArray += [ "-fontpath",     mameInstallRoot ]               # Fonts can be left on ROM filesystem
+        commandArray += [ "-languagepath", mameInstallRoot + "language/" ]      # Translations can be left on ROM filesystem
+        commandArray += [ "-pluginspath",  mameInstallRoot + "plugins/;/userdata/saves/mame/plugins" ]
         commandArray += [ "-samplepath",   "/userdata/bios/mame/samples/" ] # Current batocera storage location for MAME samples
-        commandArray += [ "-artpath",       "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/" ] # first for systems ; second for overlays
+        commandArray += [ "-artpath",       "/var/run/mame_artwork/;" + mameInstallRoot + "artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/" ] # first for systems ; second for overlays
 
         # Enable cheats
         commandArray += [ "-cheat" ]
@@ -153,6 +168,7 @@ class MameGenerator(Generator):
         commandArray += [ "-ctrlrpath" ,          "/userdata/system/configs/mame/ctrlr/" ]
         commandArray += [ "-inipath" ,            "/userdata/system/configs/mame/;/userdata/system/configs/mame/ini/" ]
         commandArray += [ "-crosshairpath" ,      "/userdata/bios/mame/artwork/crosshairs/" ]
+
         if softList != "":
             commandArray += [ "-swpath" ,        softDir ]
             commandArray += [ "-hashpath" ,      softDir + "hash/" ]
@@ -404,6 +420,11 @@ class MameGenerator(Generator):
             else:
                 # Prepare software lists
                 if softList != "":
+		    # $$$ Fedora MAME package may not have hash dir.
+                    hashDir = mameInstallRoot + "hash/"
+                    if not os.path.isdir(hashDir):
+                        hashDir = "/userdata/bios/mame/hash/"
+
                     if not os.path.exists(softDir):
                         os.makedirs(softDir)
                     for fileName in os.listdir(softDir):
@@ -418,7 +439,7 @@ class MameGenerator(Generator):
                     for hashFile in os.listdir(softDir + "hash/"):
                         if hashFile.endswith('.xml'):
                             os.unlink(softDir + "hash/" + hashFile)
-                    os.symlink("/usr/bin/mame/hash/" + softList + ".xml", softDir + "hash/" + softList + ".xml")
+                    os.symlink(hashDir + softList + ".xml", softDir + "hash/" + softList + ".xml")
                     if softList in subdirSoftList:
                         romPath = Path(romDirname)
                         os.symlink(str(romPath.parents[0]), softDir + softList, True)
@@ -474,7 +495,7 @@ class MameGenerator(Generator):
 
                 # if using software list, use "usage" for autoRunCmd (if provided)
                 if softList != "":
-                    softListFile = '/usr/bin/mame/hash/{}.xml'.format(softList)
+                    softListFile = hashDir + softList + '.xml'
                     if os.path.exists(softListFile):
                         softwarelist = ET.parse(softListFile)
                         for software in softwarelist.findall('software'):
@@ -549,8 +570,9 @@ class MameGenerator(Generator):
             mameControllers.generatePadsConfig(cfgPath, playersControllers, messModel, buttonLayout, customCfg, specialController, bezelSet, useGuns, guns, useWheels, wheels, useMouse, multiMouse, system)
 
         # Change directory to MAME folder (allows data plugin to load properly)
-        os.chdir('/usr/bin/mame')
-        return Command.Command(array=commandArray, env={"PWD":"/usr/bin/mame/","XDG_CONFIG_HOME":batoceraFiles.CONF, "XDG_CACHE_HOME":batoceraFiles.SAVES})
+        os.chdir(mameInstallRoot)
+
+        return Command.Command(array=commandArray, env={"PWD":mameInstallRoot,"XDG_CONFIG_HOME":batoceraFiles.CONF, "XDG_CACHE_HOME":batoceraFiles.SAVES})
 
     @staticmethod
     def getRoot(config, name):
@@ -757,7 +779,13 @@ class MameGenerator(Generator):
 
     @staticmethod
     def getMameMachineSize(machine, tmpdir):
-        proc = subprocess.Popen(["/usr/bin/mame/mame", "-listxml", machine], stdout=subprocess.PIPE)
+	# $$$ see comment above while building commandArray[]
+        if os.path.isdir('/usr/bin/mame'):
+             mameBinary = "/usr/bin/mame/mame"
+        else:
+             mameBinary = "/usr/bin/mame"
+
+        proc = subprocess.Popen([mameBinary, "-listxml", machine], stdout=subprocess.PIPE)
         (out, err) = proc.communicate()
         exitcode = proc.returncode
 

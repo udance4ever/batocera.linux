@@ -5,18 +5,19 @@ mpvlog="/userdata/system/logs/mpv.log"
 BOOTCONF="/boot/batocera-boot.conf"
 
 PSCREEN=
-if test "${1}" = "--screen"
-then
-    shift
-    PSCREEN=$1
-    shift
-fi
+#if test "${1}" = "--screen"
+#then
+#    shift
+#    PSCREEN=$1
+#    shift
+#fi
 
+# $$$
 # set default screen, the first one
-if test -z "${PSCREEN}"
-then
-    PSCREEN=$(xrandr --listPrimary)
-fi
+#if test -z "${PSCREEN}"
+#then
+#    PSCREEN=$(xrandr --listPrimary)
+#fi
 
 f_usage() {
     echo "${0} listModes" >&2
@@ -37,9 +38,10 @@ f_usage() {
 }
 
 f_minTomaxResolution() {
-    xrandr --output "${PSCREEN}" --auto # reinit the screen (in case it was off)
-    
-    CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
+#    xrandr --output "${PSCREEN}" --auto # reinit the screen (in case it was off)
+
+#    CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
+    CURRENT_ROTATION=$(xrandr --currentRotation | cut -c1)
     BOOTRESOLUTION="$(batocera-settings-get -f "$BOOTCONF" es.resolution)"
     MWIDTH=$(echo "$1"x | tr -d [[:blank:]] | cut -dx -f1) # the final added x is for compatibility with v29
     MHEIGHT=$(echo "$1"x | tr -d [[:blank:]] | cut -dx -f2)
@@ -70,11 +72,19 @@ f_minTomaxResolution() {
         fi
     fi
     
-    CURRENT_RESOLUTION=$(xrandr --currentResolution "${PSCREEN}")
+    # $$$ xrandr on Asahi doesn't have this option
+#    CURRENT_RESOLUTION=$(xrandr --currentResolution "${PSCREEN}")
+
+    # https://askubuntu.com/a/1351737/1034628
+    read x y < <(xrandr --current | grep -oP '\d+x\d+' | tr x ' ')
+    CURRENT_RESOLUTION="${x}x${y}"
+
     CURRENTWIDTH=$(echo "${CURRENT_RESOLUTION}" | cut -d x -f 1)
     CURRENTHEIGHT=$(echo "${CURRENT_RESOLUTION}" | cut -d 'x' -f 2)
     # get the refresh rate - very important
-    CURRENTRATE=$(xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -E 's/.*\.([0-9]+\.[0-9]+) .*/\1/')
+# $$$ missing --listModes
+#    CURRENTRATE=$(xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -E 's/.*\.([0-9]+\.[0-9]+) .*/\1/')
+    CURRENTRATE=$(xrandr --listModes | grep -E '\*$' | sed -E 's/.*\.([0-9]+\.[0-9]+) .*/\1/')
     echo "Current resolution: $CURRENTWIDTH x $CURRENTHEIGHT @ $CURRENTRATE Hz" >> "$log"
 
     # did we set a resolution?
@@ -94,7 +104,8 @@ f_minTomaxResolution() {
         if [ -z "$MAXRATE" ] || [ "$CURRENTRATE" = "$MAXRATE" ]; then
             echo "We have a match, nothing to do..." >> $log
             if [ "${CURRENT_ROTATION}" != "0" ]; then
-                batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+#                batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+                batocera-resolution setRotation "${CURRENT_ROTATION}"
             fi
             exit 0
         fi
@@ -102,36 +113,44 @@ f_minTomaxResolution() {
     
     # select the new resolution with preferred refresh rate
     if [ -n "$MAXRATE" ]; then
-        xrandr --listModes "${PSCREEN}" | while IFS= read -r line; do
+# $$$ missing --listModes
+#        xrandr --listModes "${PSCREEN}" | while IFS= read -r line; do
+        xrandr --listModes | while IFS= read -r line; do
             resolution=$(echo "$line" | awk -F'.' '{print $1}')
             rate=$(echo "$line" | grep -oE '[0-9]+\.[0-9]+' | tail -1 | tr -d "*")
             # Check if the resolution and refresh rate match the MAX values
             if echo "$resolution" | grep -q "^${MAXWIDTH}x${MAXHEIGHT}" && [ "$rate" = "$MAXRATE" ]; then
                 echo "Found & using matching resolution: $line" >> "$log"
                 PARTRES=$(echo "$line" | awk -F'.' '{print $1}')
-                OUTPUT=${PSCREEN}
+#                OUTPUT=${PSCREEN}
+                OUTPUT=$(xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+'*$'++ | head -1)
                 echo "New resolution applied = Output: ${OUTPUT} Resolution: ${PARTRES} Rate: ${MAXRATE}" >> "$log"
                 xrandr --output "$OUTPUT" --mode "$PARTRES" --rate "$MAXRATE"
                 if [ "${CURRENT_ROTATION}" != "0" ]; then
-                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+#                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+                    batocera-resolution setRotation "${CURRENT_ROTATION}"
                 fi
                 exit 0
             fi
         done
     else
         # no set refresh rate so select the first valid one
-        xrandr --listModes "${PSCREEN}" |
+# $$$ missing --listModes
+#        xrandr --listModes "${PSCREEN}" |
+        xrandr --listModes |
         while read SUGGRESOLUTIONRATE SUGGMODE; do
             SUGGRESOLUTION=$(echo "${SUGGRESOLUTIONRATE}" | cut -d . -f 1)
             SUGGWIDTH=$(echo "${SUGGRESOLUTION}" | cut -d x -f 1)
             SUGGHEIGHT=$(echo "${SUGGRESOLUTION}" | cut -d x -f 2)
             if test "${SUGGWIDTH}" -le "${MAXWIDTH}" -a "${SUGGHEIGHT}" -le "${MAXHEIGHT}"; then
-                OUTPUT=${PSCREEN}
+#                OUTPUT=${PSCREEN}
+                OUTPUT=$(xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+'*$'++ | head -1)
                 echo "Using old method = Output: ${OUTPUT} Mode: ${SUGGRESOLUTION}" >> $log
                 xrandr --output "${OUTPUT}" --mode "${SUGGRESOLUTION}"
                 if [ "${CURRENT_ROTATION}" != "0" ]; then
-                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
-                fi
+#                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+                     batocera-resolution setRotation "${CURRENT_ROTATION}"
+               fi
                 exit 0
             fi
         done
@@ -150,7 +169,9 @@ case "${ACTION}" in
     "listModes")
 	echo "max-1920x1080:maximum 1920x1080"
 	echo "max-640x480:maximum 640x480"
-	xrandr --listModes "${PSCREEN}" | sed -e s+'\*$'++ | sed -e s+'^\([^ ]*\) \(.*\)$'+'\1:\2'+
+# $$$ missing --listModes
+#	xrandr --listModes "${PSCREEN}" | sed -e s+'\*$'++ | sed -e s+'^\([^ ]*\) \(.*\)$'+'\1:\2'+
+	xrandr --listModes | sed -e s+'\*$'++ | sed -e s+'^\([^ ]*\) \(.*\)$'+'\1:\2'+
     ;;
     
     "setMode")
@@ -158,7 +179,8 @@ case "${ACTION}" in
         echo "setMode: ${MODE}" >> $log
         if echo "${MODE}" | grep -qE 'max-' # special max-widthxheight
         then
-            CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
+#            CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
+            CURRENT_ROTATION=$(xrandr --currentRotation | cut -c1)
             if test "${CURRENT_ROTATION}" = 1 -o "${CURRENT_ROTATION}" = 3
             then
                 SPMODE=$(echo "${MODE}" | sed -e s+"^max-([0-9]*)x([0-9]*)$"+"\2x\1"+)
@@ -168,8 +190,10 @@ case "${ACTION}" in
             echo "f_minTomaxResolution: $SPMODE" >> $log
             f_minTomaxResolution "${SPMODE}"
         else # normal mode
-            CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
-            OUTPUT=${PSCREEN}
+#            CURRENT_ROTATION=$(xrandr --currentRotation "${PSCREEN}" | cut -c1)
+            CURRENT_ROTATION=$(xrandr --currentRotation | cut -c1)
+#            OUTPUT=${PSCREEN}
+            OUTPUT=$(xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+'*$'++ | head -1)
             if [ -z "$OUTPUT" ]; then
                 echo "No connected output detected" >> $log
                 exit 1
@@ -181,13 +205,15 @@ case "${ACTION}" in
                 echo "setMode: Output: ${OUTPUT} Resolution: ${PARTRES} Rate: ${PARTHZ}" >> $log
                 xrandr --output "${OUTPUT}" --mode "${PARTRES}" --rate "${PARTHZ}"
                 if [ "${CURRENT_ROTATION}" != "0" ]; then
-                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+#                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+                    batocera-resolution setRotation "${CURRENT_ROTATION}"
                 fi
             else
                 echo "setMode: Output: ${OUTPUT} Mode: ${MODE}" >> $log
                 xrandr --output "${OUTPUT}" --mode "${MODE}"
                 if [ "${CURRENT_ROTATION}" != "0" ]; then
-                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+#                    batocera-resolution --screen "${PSCREEN}" setRotation "${CURRENT_ROTATION}"
+                    batocera-resolution setRotation "${CURRENT_ROTATION}"
                 fi
             fi
             # check if there was an error setting the mode
@@ -199,15 +225,22 @@ case "${ACTION}" in
     ;;
     
     "currentMode")
-	xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -e s+'\*$'++ -e s+'^\([^ ]*\) .*$'+"\1"+
+# $$$ missing --listModes
+#	xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -e s+'\*$'++ -e s+'^\([^ ]*\) .*$'+"\1"+
+	xrandr --listModes | grep -E '\*$' | sed -e s+'\*$'++ -e s+'^\([^ ]*\) .*$'+"\1"+
     ;;
 
     "refreshRate")
-    xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -e 's/\*$//' -e 's/^\([^ ]*\) .*/\1/' | awk -F'[.]' '{print $2 "." $3}'
+# $$$ missing --listModes
+#    xrandr --listModes "${PSCREEN}" | grep -E '\*$' | sed -e 's/\*$//' -e 's/^\([^ ]*\) .*/\1/' | awk -F'[.]' '{print $2 "." $3}'
+    xrandr --listModes | grep -E '\*$' | sed -e 's/\*$//' -e 's/^\([^ ]*\) .*/\1/' | awk -F'[.]' '{print $2 "." $3}'
     ;;
 
     "currentResolution")
-	xrandr --currentResolution "${PSCREEN}" | tail -n1
+#	xrandr --currentResolution "${PSCREEN}" | tail -n1
+        # https://askubuntu.com/a/1351737/1034628
+        read x y < <(xrandr --current | grep -oP '\d+x\d+' | tr x ' ')
+        echo ${x}x${y}
     ;;
     
     "listOutputs")
@@ -215,7 +248,8 @@ case "${ACTION}" in
     ;;
     
     "currentOutput")
-	echo "${PSCREEN}"
+#	echo "${PSCREEN}"
+	xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+"*$"++
     ;;
     
     "setOutput")
@@ -296,7 +330,8 @@ case "${ACTION}" in
         fi
         MODE=$(echo "$MODELINE" | egrep -v "^#" | tail -n 1 | sed "s/^Modeline //")
         MNAME=$(echo "$MODE" | cut -d' ' -f1)
-        OUTPUT=${PSCREEN}
+#        OUTPUT=${PSCREEN}
+        OUTPUT=$(xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+'*$'++ | head -1)
         xrandr --newmode ${MODE}
         xrandr --addmode "${OUTPUT}" "${MNAME}"
         xrandr --output "${OUTPUT}" --mode "${MNAME}"
@@ -314,7 +349,8 @@ case "${ACTION}" in
         TRIES=5
         COUNT=0
         ROTATE=$1
-        OUTPUT=${PSCREEN}
+#        OUTPUT=${PSCREEN}
+        OUTPUT=$(xrandr --listConnectedOutputs | grep -E '\*$' | sed -e s+'*$'++ | head -1)
         while [ $COUNT -lt $TRIES ]; do
             TOUCHSCREEN=$(xinput | grep pointer | tail -n +2 | grep -Ei 'touchscreen|2808:1015|27C6:011A|0603:F001|HID Touch' | sed -E 's/[^a-zA-Z0-9]*((\S+ ?)+[a-zA-Z0-9\(\)]+)\s*id=([0-9]+)\s*(.*)/"\1"/')
             TOUCHID=$(xinput | grep pointer | tail -n +2 | grep -Ei 'touchscreen|2808:1015|27C6:011A|0603:F001|HID Touch' | sed -E 's/[^a-zA-Z0-9]*((\S+ ?)+[a-zA-Z0-9\(\)]+)\s*id=([0-9]+)\s*(.*)/\3/')
@@ -351,14 +387,15 @@ case "${ACTION}" in
     ;;
 
     "getRotation")
-	    xrandr --currentRotation "${PSCREEN}"
-    ;;
+#	    xrandr --currentRotation "${PSCREEN}"
+ 	    xrandr --currentRotation
+   ;;
 
-    "setReflection")
-            OUTPUT=${PSCREEN}
-            REFLECTION=$1
-            xrandr --output "${OUTPUT}" --reflect "${REFLECTION}"
-    ;;
+#    "setReflection")
+#            OUTPUT=${PSCREEN}
+#            REFLECTION=$1
+#            xrandr --output "${OUTPUT}" --reflect "${REFLECTION}"
+#    ;;
     
     "getDisplayMode")
         echo "xorg"

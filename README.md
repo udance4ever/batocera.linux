@@ -1,3 +1,5 @@
+🛑 **NOTE**: You are in a branch dedicated to an **unofficial** port of Batocera Linux on top of the Asahi kernel (state of this effort is documented [here](AARCH64.md)) 🛑
+---
 [![Activity](https://img.shields.io/github/commit-activity/m/batocera-linux/batocera.linux)](https://github.com/batocera-linux/batocera.linux)
 [![PR](https://img.shields.io/github/issues-pr-closed/batocera-linux/batocera.linux)](https://github.com/batocera-linux/batocera.linux)
 [![Stars](https://img.shields.io/github/stars/batocera-linux?style=social)](https://github.com/batocera-linux/batocera.linux)

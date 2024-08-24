@@ -1,0 +1,32 @@
+apple2:
+  emulator: mame
+  core:     mame
+atari2600:
+  emulator: libretro
+  core:     stella2014
+fds:
+  emulator: libretro
+  core:     nestopia
+gameandwatch:
+  emulator: mame
+  core:     mame
+  options:
+    forceNoBezel: true
+lynx:
+  emulator: libretro
+  core:     handy
+nes:
+  emulator: libretro
+  core:     nestopia
+pcengine:
+  emulator: libretro
+  core:     mednafen_pce_fast
+pcenginecd:
+  emulator: libretro
+  core:     mednafen_pce_fast
+snes:
+  emulator: libretro
+  core:     bsnes_mercury_performance
+virtualboy:
+  emulator: libretro
+  core:     mednafen_vb

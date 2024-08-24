@@ -52,7 +52,9 @@ retroarchRootInit = CONF_INIT + '/retroarch'
 retroarchCustom = retroarchRoot + '/retroarchcustom.cfg'
 retroarchCoreCustom = retroarchRoot + "/cores/retroarch-core-options.cfg"
 
-retroarchCores = "/usr/lib/libretro/"
+# $$ different location in Fedora
+# retroarchCores = "/usr/lib/libretro/"
+retroarchCores = "/usr/lib64/libretro/"
 screenshotsDir = "/userdata/screenshots/"
 savesDir = "/userdata/saves/"
 

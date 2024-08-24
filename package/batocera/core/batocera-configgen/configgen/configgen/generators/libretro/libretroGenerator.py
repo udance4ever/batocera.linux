@@ -30,6 +30,14 @@ class LibretroGenerator(Generator):
         if system.config['core'] in [ 'mess', 'mamevirtual' ]:
             system.config['core'] = 'mame'
 
+	# $$$ fix for incorrect core value `pce` when configgen-defaults.yml declares:
+	#
+	# pcengine:  
+	#  emulator: libretro
+	#  core:     mednafen_pce_fast
+        if system.config['core'] == "pce":
+            system.config['core'] = 'mednafen_pce_fast'
+
         # Get the graphics backend first
         gfxBackend = getGFXBackend(system)
 
