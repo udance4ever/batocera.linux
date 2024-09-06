@@ -1,10 +1,11 @@
 FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
-RUN dpkg --add-architecture i386 && \
+# $$$ TODO: create conditional on "gcc-multilib" and "g++-multilib" based on arch (or availability of packages)
+RUN dpkg --add-architecture arm64 && \
 	apt-get update && \
-	apt-get install -y -o APT::Immediate-Configure=0 libc6:i386 \
-		libncurses6:i386 \
-		libstdc++6:i386 \
+	apt-get install -y -o APT::Immediate-Configure=0 libc6:arm64 \
+		libncurses6:arm64 \
+		libstdc++6:arm64 \
 		build-essential \
 		cmake \
 		git \
@@ -36,8 +37,6 @@ RUN dpkg --add-architecture i386 && \
 		locales \
 		graphviz \
 		python3 \
-		gcc-multilib \
-		g++-multilib \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 

@@ -1,2 +1,4 @@
 config BR2_PACKAGE_KODI20_PVR_FREEBOX
 	bool "kodi20-pvr-freebox"
+
+	select BR2_PACKAGE_JSON_FOR_MODERN_CPP

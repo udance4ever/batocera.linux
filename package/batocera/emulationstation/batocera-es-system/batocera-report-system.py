@@ -9,6 +9,7 @@ import re
 import argparse
 import json
 import os
+import sys
 
 class SortedListEncoder(json.JSONEncoder):
     def encode(self, obj):
@@ -179,7 +180,13 @@ class EsSystemConf:
             emulators_result[emulator] = result_cores
 
         if nb_variants > 0 and defaultFound == False:
-            raise Exception("default core ({}/{}) not enabled for {}/{}" . format(defaultEmulator, defaultCore, arch, system))
+# $$$ this script should only throw an exception if a default core is not built/included for the target image
+#     is there a way this script to query/determine the board the build is targeted for?
+#     for example, if building for bcm2836, this should be a warning (not an exception):
+#
+#  Exception: default core (libretro/uae4arm) not enabled for bcm2837/amiga500
+#            raise Exception("default core ({}/{}) not enabled for {}/{}" . format(defaultEmulator, defaultCore, arch, system))
+            print("WARNING: default core ({}/{}) not enabled for {}/{}" . format(defaultEmulator, defaultCore, arch, system), file=sys.stderr)
 
         result = {}
         result["name"] = data["name"]

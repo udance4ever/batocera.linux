@@ -1,6 +1,15 @@
 config BR2_PACKAGE_GRIM
     bool "grim"
+
+    select BR2_PACKAGE_LIBPNG
+    select BR2_PACKAGE_LIBJPEG
+    select BR2_PACKAGE_PIXMAN
+    # $$ has JCS_EXT_BGRA and JCS_EXT_BGRX
+    select BR2_PACKAGE_JPEG_TURBO
+
     depends on BR2_PACKAGE_WAYLAND
+
+    select BR2_PACKAGE_WAYLAND_PROTOCOLS
 
     help
         Grab images from a Wayland compositor.

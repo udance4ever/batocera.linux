@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Sept 4, 2024
+#
+# links a dependent package buildroot doesn't create hard links (via rsync)
+
+# https://stackoverflow.com/a/3063887/9983389
+if [ ! -z "$1" ]; then
+        pkgToLink=$1
+else
+        echo "usage: `basename $0` <pkgToLink> <pkg>"
+        exit 1
+fi
+
+if [ ! -z "$2" ]; then
+        pkg=$2
+else
+        echo "usage: `basename $0` <pkgToLink> <pkg>"
+        exit 1
+fi
+
+arch=bcm2836
+
+if [ -d /$arch ]; then
+	# inside Docker shell
+	prefix=/output
+else
+	prefix=$(realpath `pwd`/output)
+fi
+
+# rsync -a --hard-links  --link-dest=/mnt/dev/batocera/output/bcm2836/per-package/gl4es/target/ /mnt/dev/batocera/output/bcm2836/per-package/gl4es/target/ /mnt/dev/batocera/output/bcm2836/per-package/libretro-flycastvl/target
+
+for dest in target host; do
+echo	rsync -a --hard-links --link-dest=$prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkg/$dest
+	rsync -a --hard-links --link-dest=$prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkg/$dest
+done
