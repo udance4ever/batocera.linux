@@ -20,8 +20,11 @@ mkdir -p "${BATOCERA_BINARIES_DIR}/boot/EFI/batocera"  || exit 1
 mkdir -p "${BATOCERA_BINARIES_DIR}/boot/grub"          || exit 1
 
 # Batocera kernel, initrd, and root
+echo " bzImage ..."
 cp "${BINARIES_DIR}/bzImage"         "${BATOCERA_BINARIES_DIR}/boot/boot/linux"           || exit 1
+echo " initrd.gz ..."
 cp "${BINARIES_DIR}/initrd.gz"       "${BATOCERA_BINARIES_DIR}/boot/boot/"                || exit 1
+echo " batocera.update ..."
 cp "${BINARIES_DIR}/rootfs.squashfs" "${BATOCERA_BINARIES_DIR}/boot/boot/batocera.update" || exit 1
 
 cp "${BOARD_DIR}/boot/syslinux.cfg"       "${BATOCERA_BINARIES_DIR}/boot/boot/"          || exit 1
