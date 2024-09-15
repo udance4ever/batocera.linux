@@ -14,6 +14,10 @@ LIBRETRO_WASM4_SUBDIR = runtimes/native
 
 LIBRETRO_WASM4_CONF_OPTS = -DCMAKE_BUILD_TYPE=Release
 
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY),y)
+LIBRETRO_WASM4_DEPENDENCIES += libglvnd libxkbcommon
+endif
+
 define LIBRETRO_WASM4_INSTALL_TARGET_CMDS
 	$(INSTALL) -D $(@D)/runtimes/native/wasm4_libretro.so \
 	    $(TARGET_DIR)/usr/lib/libretro/wasm4_libretro.so

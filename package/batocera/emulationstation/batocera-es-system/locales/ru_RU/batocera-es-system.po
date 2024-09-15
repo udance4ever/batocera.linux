@@ -10407,7 +10407,7 @@ msgctxt "game_options"
 msgid "LIMIT FPS"
 msgstr "ЛИМИТ FPS"
 
-#. TRANSLATION: openbor/openbor7530, supermodel
+#. TRANSLATION: openbor/openbor7530, supermodel, model2emu
 msgctxt "game_options"
 msgid "Only some games feature rumble. Not compatible with all controllers."
 msgstr ""
@@ -15134,7 +15134,7 @@ msgctxt "keys_files"
 msgid "Configuration menu"
 msgstr "Меню настроек"
 
-#. TRANSLATION: wiiu.keys, triforce.dolphin_triforce.keys, naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
+#. TRANSLATION: wiiu.keys, 3ds.citra.keys, triforce.dolphin_triforce.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Exit emulator"
 msgstr "Выйти из эмулятора"
@@ -15143,6 +15143,51 @@ msgstr "Выйти из эмулятора"
 msgctxt "keys_files"
 msgid "Display the controller screen"
 msgstr "Показать экран контроллера"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Move Stylet Pointer"
+msgstr "Переместить указатель стилета"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Restart Emulation"
+msgstr "Перезапустить эмуляцию"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Continue/Pause emulation"
+msgstr "Продолжить/приостановить эмуляцию"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap Screen"
+msgstr "Поменять экран"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Screen Layout"
+msgstr "Переключить расположение экранов"
+
+#. TRANSLATION: 3ds.citra.keys, triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, ...
+msgctxt "keys_files"
+msgid "Screenshot"
+msgstr "Скриншот"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Speed Limit"
+msgstr "Переключить ограничение скорости"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap screens"
+msgstr "Смена экранов"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Mouse Click"
+msgstr "Клик мышью"
 
 #. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, gaelco.demul.keys, hikaru.demul.keys, naomi.demul.keys, ...
 msgctxt "keys_files"
@@ -15278,11 +15323,6 @@ msgstr "Загрука из Слота 1"
 msgctxt "keys_files"
 msgid "Save State Slot 1"
 msgstr "Сохранение в Слот 1"
-
-#. TRANSLATION: triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, scummvm.keys, ...
-msgctxt "keys_files"
-msgid "Screenshot"
-msgstr "Скриншот"
 
 #. TRANSLATION: dos.dosbox-x.keys
 msgctxt "keys_files"
@@ -15459,7 +15499,7 @@ msgctxt "keys_files"
 msgid "Fast Forward"
 msgstr "Быстрая перемотка"
 
-#. TRANSLATION: naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, dreamcast.redream.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, naomi2.flycast.keys, dreamcast.redream.keys
 msgctxt "keys_files"
 msgid "Hide the bezel"
 msgstr "Скрыть рамку"
@@ -15473,6 +15513,11 @@ msgstr "Виртуальная клавиатура"
 msgctxt "keys_files"
 msgid "Settings GUI"
 msgstr "Настройки GUI"
+
+#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
+msgctxt "keys_files"
+msgid "Service menu"
+msgstr "Сервисное меню"
 
 #. TRANSLATION: moonlight.moonlight.keys
 msgctxt "keys_files"
@@ -15563,51 +15608,6 @@ msgstr "Левый магнасейв"
 msgctxt "keys_files"
 msgid "Right magnasave"
 msgstr "Правый магнасейв"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Move Stylet Pointer"
-msgstr "Переместить указатель стилета"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Restart Emulation"
-msgstr "Перезапустить эмуляцию"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Continue/Pause emulation"
-msgstr "Продолжить/приостановить эмуляцию"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap Screen"
-msgstr "Поменять экран"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Screen Layout"
-msgstr "Переключить расположение экранов"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Speed Limit"
-msgstr "Переключить ограничение скорости"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap screens"
-msgstr "Смена экранов"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Mouse Click"
-msgstr "Клик мышью"
-
-#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
-msgctxt "keys_files"
-msgid "Service menu"
-msgstr "Сервисное меню"
 
 #. TRANSLATION: corsixth.keys
 msgctxt "keys_files"

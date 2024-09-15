@@ -10381,7 +10381,7 @@ msgctxt "game_options"
 msgid "LIMIT FPS"
 msgstr "Limit FPS"
 
-#. TRANSLATION: openbor/openbor7530, supermodel
+#. TRANSLATION: openbor/openbor7530, supermodel, model2emu
 msgctxt "game_options"
 msgid "Only some games feature rumble. Not compatible with all controllers."
 msgstr ""
@@ -15065,7 +15065,7 @@ msgctxt "keys_files"
 msgid "Configuration menu"
 msgstr ""
 
-#. TRANSLATION: wiiu.keys, triforce.dolphin_triforce.keys, naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
+#. TRANSLATION: wiiu.keys, 3ds.citra.keys, triforce.dolphin_triforce.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Exit emulator"
 msgstr "Ukončit emulátor"
@@ -15074,6 +15074,51 @@ msgstr "Ukončit emulátor"
 msgctxt "keys_files"
 msgid "Display the controller screen"
 msgstr "Zobrazení obrazovky ovladače"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Move Stylet Pointer"
+msgstr "Přesunutí ukazatele stylu"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Restart Emulation"
+msgstr "Restart emulace"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Continue/Pause emulation"
+msgstr "Pokračovat/pozastavit emulaci"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap Screen"
+msgstr "Výměna obrazovky"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Screen Layout"
+msgstr "Přepínání rozložení obrazovky"
+
+#. TRANSLATION: 3ds.citra.keys, triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, ...
+msgctxt "keys_files"
+msgid "Screenshot"
+msgstr "Snímek obrazovky"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Speed Limit"
+msgstr "Přepínání omezení rychlosti"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap screens"
+msgstr "Výměna obrazovek"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Mouse Click"
+msgstr "Kliknutí myší"
 
 #. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, gaelco.demul.keys, hikaru.demul.keys, naomi.demul.keys, ...
 msgctxt "keys_files"
@@ -15209,11 +15254,6 @@ msgstr "Načtení pozice Slot 1"
 msgctxt "keys_files"
 msgid "Save State Slot 1"
 msgstr "Uložení pozice Slot 1"
-
-#. TRANSLATION: triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, scummvm.keys, ...
-msgctxt "keys_files"
-msgid "Screenshot"
-msgstr "Snímek obrazovky"
 
 #. TRANSLATION: dos.dosbox-x.keys
 msgctxt "keys_files"
@@ -15390,7 +15430,7 @@ msgctxt "keys_files"
 msgid "Fast Forward"
 msgstr "Rychle vpřed"
 
-#. TRANSLATION: naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, dreamcast.redream.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, naomi2.flycast.keys, dreamcast.redream.keys
 msgctxt "keys_files"
 msgid "Hide the bezel"
 msgstr "Skrytí rámečku"
@@ -15404,6 +15444,11 @@ msgstr "Virtuální klávesnice"
 msgctxt "keys_files"
 msgid "Settings GUI"
 msgstr "Nastavení GUI"
+
+#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
+msgctxt "keys_files"
+msgid "Service menu"
+msgstr ""
 
 #. TRANSLATION: moonlight.moonlight.keys
 msgctxt "keys_files"
@@ -15494,51 +15539,6 @@ msgstr "Levé uložení magna"
 msgctxt "keys_files"
 msgid "Right magnasave"
 msgstr "Uložení vpravo magna"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Move Stylet Pointer"
-msgstr "Přesunutí ukazatele stylu"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Restart Emulation"
-msgstr "Restart emulace"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Continue/Pause emulation"
-msgstr "Pokračovat/pozastavit emulaci"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap Screen"
-msgstr "Výměna obrazovky"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Screen Layout"
-msgstr "Přepínání rozložení obrazovky"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Speed Limit"
-msgstr "Přepínání omezení rychlosti"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap screens"
-msgstr "Výměna obrazovek"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Mouse Click"
-msgstr "Kliknutí myší"
-
-#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
-msgctxt "keys_files"
-msgid "Service menu"
-msgstr ""
 
 #. TRANSLATION: corsixth.keys
 msgctxt "keys_files"

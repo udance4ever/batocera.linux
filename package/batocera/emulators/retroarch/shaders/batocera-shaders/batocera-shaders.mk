@@ -71,12 +71,13 @@ endef
 
 define BATOCERA_SHADERS_SLANG
     # Some shaders got the .slan(g) variants moved
-    cd $(TARGET_DIR)/usr/share/batocera/shaders/ && cp -f pixel-art-scaling/sharp-bilinear-simple.slangp ./interpolation/ && \
+    -cd $(TARGET_DIR)/usr/share/batocera/shaders/ && cp -f pixel-art-scaling/sharp-bilinear-simple.slangp ./interpolation/ && \
 		cp -f pixel-art-scaling/shaders/sharp-bilinear-simple.slang ./interpolation/shaders/
-    cd $(TARGET_DIR)/usr/share/batocera/shaders/ && cp -f edge-smoothing/scalehq/2xScaleHQ.slangp ./scalehq/ && \
+    -cd $(TARGET_DIR)/usr/share/batocera/shaders/ && cp -f edge-smoothing/scalehq/2xScaleHQ.slangp ./scalehq/ && \
 		cp -f ./edge-smoothing/scalehq/shaders/2xScaleHQ.slang ./scalehq/shaders/
 endef
 
+# $$$ cp: cannot stat 'pixel-art-scaling/sharp-bilinear-simple.slang
 ifeq ($(BR2_PACKAGE_SLANG_SHADERS),y)
     BATOCERA_SHADERS_POST_INSTALL_TARGET_HOOKS = BATOCERA_SHADERS_SLANG
 endif

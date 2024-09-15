@@ -7,7 +7,12 @@
 LIGHTSPARK_VERSION = 0.8.7
 LIGHTSPARK_SITE = $(call github,lightspark,lightspark,$(LIGHTSPARK_VERSION))
 LIGHTSPARK_LICENSE = LGPLv3
+# $$$  libgl is in the dependency chain of libglew that has added it to its _DEPENDENCIES variable without selecting it or depending on it from Config.in
 LIGHTSPARK_DEPENDENCIES = sdl2 freetype pcre jpeg libpng cairo pango ffmpeg libcurl rtmpdump
+
+ifeq ($(BR2_PACKAGE_XORG7)$(BR2_PACKAGE_HAS_LIBGL),yy)
+LIGHTSPARK_DEPENDENCIES += libglew
+endif
 
 LIGHTSPARK_CONF_OPTS += -DCOMPILE_NPAPI_PLUGIN=FALSE -DCOMPILE_PPAPI_PLUGIN=FALSE
 ifneq ($(BR2_x86_64),y)

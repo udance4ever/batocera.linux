@@ -10245,7 +10245,7 @@ msgctxt "game_options"
 msgid "LIMIT FPS"
 msgstr "限制FPS"
 
-#. TRANSLATION: openbor/openbor7530, supermodel
+#. TRANSLATION: openbor/openbor7530, supermodel, model2emu
 msgctxt "game_options"
 msgid "Only some games feature rumble. Not compatible with all controllers."
 msgstr "只有一些游戏具有震动功能。不兼容所有控制器。"
@@ -14823,7 +14823,7 @@ msgctxt "keys_files"
 msgid "Configuration menu"
 msgstr "配置菜单"
 
-#. TRANSLATION: wiiu.keys, triforce.dolphin_triforce.keys, naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
+#. TRANSLATION: wiiu.keys, 3ds.citra.keys, triforce.dolphin_triforce.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Exit emulator"
 msgstr "退出模拟器"
@@ -14832,6 +14832,51 @@ msgstr "退出模拟器"
 msgctxt "keys_files"
 msgid "Display the controller screen"
 msgstr "显示控制器屏幕"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Move Stylet Pointer"
+msgstr "移动样式表指针"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Restart Emulation"
+msgstr "重置模拟器"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Continue/Pause emulation"
+msgstr "继续/暂停模拟器"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap Screen"
+msgstr "交换屏幕"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Screen Layout"
+msgstr "切换屏幕布局"
+
+#. TRANSLATION: 3ds.citra.keys, triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, ...
+msgctxt "keys_files"
+msgid "Screenshot"
+msgstr "截图"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Speed Limit"
+msgstr "切换速度限制"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap screens"
+msgstr "交换屏幕"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Mouse Click"
+msgstr "鼠标点击"
 
 #. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, gaelco.demul.keys, hikaru.demul.keys, naomi.demul.keys, ...
 msgctxt "keys_files"
@@ -14967,11 +15012,6 @@ msgstr "载入状态插槽1"
 msgctxt "keys_files"
 msgid "Save State Slot 1"
 msgstr "保存状态插槽1"
-
-#. TRANSLATION: triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, scummvm.keys, ...
-msgctxt "keys_files"
-msgid "Screenshot"
-msgstr "截图"
 
 #. TRANSLATION: dos.dosbox-x.keys
 msgctxt "keys_files"
@@ -15148,7 +15188,7 @@ msgctxt "keys_files"
 msgid "Fast Forward"
 msgstr "快进"
 
-#. TRANSLATION: naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, dreamcast.redream.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, naomi2.flycast.keys, dreamcast.redream.keys
 msgctxt "keys_files"
 msgid "Hide the bezel"
 msgstr "隐藏挡板"
@@ -15162,6 +15202,11 @@ msgstr "虚拟键盘"
 msgctxt "keys_files"
 msgid "Settings GUI"
 msgstr "设置界面"
+
+#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
+msgctxt "keys_files"
+msgid "Service menu"
+msgstr "服务菜单"
 
 #. TRANSLATION: moonlight.moonlight.keys
 msgctxt "keys_files"
@@ -15252,51 +15297,6 @@ msgstr "左磁力保护"
 msgctxt "keys_files"
 msgid "Right magnasave"
 msgstr "右磁力保护"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Move Stylet Pointer"
-msgstr "移动样式表指针"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Restart Emulation"
-msgstr "重置模拟器"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Continue/Pause emulation"
-msgstr "继续/暂停模拟器"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap Screen"
-msgstr "交换屏幕"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Screen Layout"
-msgstr "切换屏幕布局"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Speed Limit"
-msgstr "切换速度限制"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap screens"
-msgstr "交换屏幕"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Mouse Click"
-msgstr "鼠标点击"
-
-#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
-msgctxt "keys_files"
-msgid "Service menu"
-msgstr "服务菜单"
 
 #. TRANSLATION: corsixth.keys
 msgctxt "keys_files"

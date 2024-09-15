@@ -10391,7 +10391,7 @@ msgctxt "game_options"
 msgid "LIMIT FPS"
 msgstr ""
 
-#. TRANSLATION: openbor/openbor7530, supermodel
+#. TRANSLATION: openbor/openbor7530, supermodel, model2emu
 msgctxt "game_options"
 msgid "Only some games feature rumble. Not compatible with all controllers."
 msgstr ""
@@ -15044,7 +15044,7 @@ msgctxt "keys_files"
 msgid "Configuration menu"
 msgstr ""
 
-#. TRANSLATION: wiiu.keys, triforce.dolphin_triforce.keys, naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
+#. TRANSLATION: wiiu.keys, 3ds.citra.keys, triforce.dolphin_triforce.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, ...
 msgctxt "keys_files"
 msgid "Exit emulator"
 msgstr "Irten emuladorea"
@@ -15053,6 +15053,51 @@ msgstr "Irten emuladorea"
 msgctxt "keys_files"
 msgid "Display the controller screen"
 msgstr "Erakutsi kontrolatzaile pantaila"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Move Stylet Pointer"
+msgstr "Mugitu estilete erakuslea"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Restart Emulation"
+msgstr "Berrabiarazi Emulazioa"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Continue/Pause emulation"
+msgstr "Jarraitu/Gelditu emulazioa"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap Screen"
+msgstr "Aldatu Pantaila"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Screen Layout"
+msgstr "Aldatu Pantaila antolaketa"
+
+#. TRANSLATION: 3ds.citra.keys, triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, ...
+msgctxt "keys_files"
+msgid "Screenshot"
+msgstr "Pantaila argazkia"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Toggle Speed Limit"
+msgstr "Aldatu Abiadura Muga"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Swap screens"
+msgstr "Aldatu pantailak"
+
+#. TRANSLATION: 3ds.citra.keys
+msgctxt "keys_files"
+msgid "Mouse Click"
+msgstr "Xagu Klik-a"
 
 #. TRANSLATION: cave3rd.demul.keys, dreamcast.demul.keys, gaelco.demul.keys, hikaru.demul.keys, naomi.demul.keys, ...
 msgctxt "keys_files"
@@ -15188,11 +15233,6 @@ msgstr "Kargatu 1 Egoera Zirrikitua"
 msgctxt "keys_files"
 msgid "Save State Slot 1"
 msgstr "Gorde 1 Egoera Zirrikitua"
-
-#. TRANSLATION: triforce.dolphin_triforce.keys, psx.duckstation.keys, psp.ppsspp.keys, mame.keys, scummvm.keys, ...
-msgctxt "keys_files"
-msgid "Screenshot"
-msgstr "Pantaila argazkia"
 
 #. TRANSLATION: dos.dosbox-x.keys
 msgctxt "keys_files"
@@ -15369,7 +15409,7 @@ msgctxt "keys_files"
 msgid "Fast Forward"
 msgstr "Azkar aurreratu"
 
-#. TRANSLATION: naomi2.flycast.keys, atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, dreamcast.redream.keys
+#. TRANSLATION: atomiswave.flycast.keys, dreamcast.flycast.keys, naomi.flycast.keys, naomi2.flycast.keys, dreamcast.redream.keys
 msgctxt "keys_files"
 msgid "Hide the bezel"
 msgstr "Ezkutatu bezel-a"
@@ -15383,6 +15423,11 @@ msgstr "Teklatu birtuala"
 msgctxt "keys_files"
 msgid "Settings GUI"
 msgstr "GUI Ezarpenak"
+
+#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
+msgctxt "keys_files"
+msgid "Service menu"
+msgstr ""
 
 #. TRANSLATION: moonlight.moonlight.keys
 msgctxt "keys_files"
@@ -15472,51 +15517,6 @@ msgstr ""
 #. TRANSLATION: vpinball.keys
 msgctxt "keys_files"
 msgid "Right magnasave"
-msgstr ""
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Move Stylet Pointer"
-msgstr "Mugitu estilete erakuslea"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Restart Emulation"
-msgstr "Berrabiarazi Emulazioa"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Continue/Pause emulation"
-msgstr "Jarraitu/Gelditu emulazioa"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap Screen"
-msgstr "Aldatu Pantaila"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Screen Layout"
-msgstr "Aldatu Pantaila antolaketa"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Toggle Speed Limit"
-msgstr "Aldatu Abiadura Muga"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Swap screens"
-msgstr "Aldatu pantailak"
-
-#. TRANSLATION: 3ds.citra.keys
-msgctxt "keys_files"
-msgid "Mouse Click"
-msgstr "Xagu Klik-a"
-
-#. TRANSLATION: daphne.hypseus-singe.keys, singe.hypseus-singe.keys
-msgctxt "keys_files"
-msgid "Service menu"
 msgstr ""
 
 #. TRANSLATION: corsixth.keys

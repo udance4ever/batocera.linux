@@ -14,6 +14,10 @@ ETLEGACY_LICENSE_FILE = COPYING.txt
 ETLEGACY_DEPENDENCIES += freetype libcurl libglew libpng libtheora
 ETLEGACY_DEPENDENCIES += libvorbis lua openal openssl sdl2
 
+ifeq ($(BR2_PACKAGE_LIBGLU),y)
+ETLEGACY_DEPENDENCIES += libglu
+endif
+
 ETLEGACY_SUPPORTS_IN_SOURCE_BUILD = NO
 
 ETLEGACY_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
