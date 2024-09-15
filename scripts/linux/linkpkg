@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Sept 4, 2024
+#
+# script to patch per-package (PARALLEL_BUILD) directory with missing package dependency
+# 
+# NOTE: best way is to update <pkg>.mk & Config.in with dependency so buildroot resolves this in configure phase
+
+# https://stackoverflow.com/a/3063887/9983389
+if [ ! -z "$1" ]; then
+        pkgToLink=$1
+else
+        echo "usage: `basename $0` <pkgToLink> <pkg>"
+        exit 1
+fi
+
+if [ ! -z "$2" ]; then
+        pkg=$2
+else
+        echo "usage: `basename $0` <pkgToLink> <pkg>"
+        exit 1
+fi
+
+# https://phoenixnap.com/kb/bash-case-statement
+case "$PWD" in
+  *x86_64*)
+	arch=x86_64;;
+  *bcm2836*)
+	arch=bcm2836;;
+  *)
+	arch=x86_64 #default
+	echo "defaulting to $arch"
+	;;
+esac
+
+if [ -d /build ]; then
+        # inside Docker shell
+        prefix=
+else
+	if [ ! -d ./buildroot ]; then
+		echo "this doesn't seem to be the root"
+		exit 1
+	fi
+
+	if [ ! -L ./output ]; then
+		echo "symlink (recommended) to output is not initialized"
+		exit 1
+	fi
+
+	prefix=$(realpath output)
+fi
+
+if [ ! -d "$prefix/$arch/per-package" ]; then
+	echo "this doesn't appear to be a PARALLEL_BUILD environment"
+	exit 1
+fi
+
+for dest in target host; do
+        echo rsync -a --hard-links --link-dest=$prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkg/$dest
+        rsync -a --hard-links --link-dest=$prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkgToLink/$dest/ $prefix/$arch/per-package/$pkg/$dest
+done
