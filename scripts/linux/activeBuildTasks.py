@@ -40,8 +40,13 @@ count = 0
 for package in tracker:
     if "start" in tracker[package]:
         count += 1
-# https://www.epochconverter.com
-#        date = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime(int(timestamp[package])))
-        date = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(int(timestamp[package])))
-        print("{0}. {1:43} ({2})".format(count,package,date))
 
+        # calc how many seconds ago
+        diff = int(time.time()) - int(timestamp[package])
+#        print(diff)
+
+# https://www.epochconverter.com
+#        date = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime(epoch))
+        date = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(int(timestamp[package])))
+
+        print("{0}. {1:43} ({2} seconds ago ({3}))".format(count,package,diff,date))
