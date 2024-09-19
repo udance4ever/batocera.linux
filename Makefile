@@ -70,8 +70,8 @@ endef
 
 define MAKE_BUILDROOT
 	$(RUN_DOCKER) make $(MAKE_OPTS) O=/$* \
-			BR2_EXTERNAL=/build -C \
-			/build/buildroot
+			BR2_EXTERNAL=/build \
+			-C /build/buildroot
 endef
 
 endif # DIRECT_BUILD
@@ -134,6 +134,9 @@ dl-dir:
 
 %-build: batocera-docker-image %-config ccache-dir dl-dir
 	@$(MAKE_BUILDROOT) $(CMD)
+
+%-pbuild: batocera-docker-image %-config ccache-dir dl-dir
+	@$(MAKE_BUILDROOT) PBUILDER_OPTS="$(PBUILDER_OPTS)" pbuilder
 
 %-source: batocera-docker-image %-config ccache-dir dl-dir
 	@$(MAKE_BUILDROOT) source

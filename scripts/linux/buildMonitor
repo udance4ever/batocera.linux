@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Sept 14, 2024
+
+if [ ! -d ./buildroot ]; then
+        echo "current directory doesn't seem to be the root"
+        exit 1
+fi
+
+# https://phoenixnap.com/kb/bash-case-statement
+case "$PWD" in
+  *x86_64*)
+	arch=x86_64;;
+  *bcm2836*)
+	arch=bcm2836;;
+  *)
+	arch=x86_64 #default
+	echo "defaulting to $arch"
+	;;
+esac
+
+while true; do
+	clear
+
+ 	scripts/linux/compileRemain.sh
+	echo
+	grep ':build' output/$arch/build/build-time.log | tail
+	echo
+	scripts/linux/activeBuildTasks.py $arch
+
+	sleep 10
+done
+ 
+
