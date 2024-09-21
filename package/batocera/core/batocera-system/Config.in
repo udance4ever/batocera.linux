@@ -269,9 +269,8 @@ config BR2_PACKAGE_BATOCERA_SYSTEM
 	select BR2_PACKAGE_FLATPAK				if BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY # flatpak app packaging system
 	select BR2_PACKAGE_BAUH					if BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY # flatpak gui
 	select BR2_PACKAGE_RYZENADJ				if BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY # ryzen apu configuration
-# $$$ host-go (not yet resolved building bcm2836 on aarch64 yet) (x86_64 can be built on aarch64)
 	# sync files across multiple batoceras
-	select BR2_PACKAGE_SYNCTHING				# if !(BR2_HOSTARCH = "aarch64" && BR2_PACKAGE_TARGET_BCM2836)
+	select BR2_PACKAGE_SYNCTHING
 	select BR2_PACKAGE_RCLONE				if BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY # sync files in the cloud (require x86_64)
 	select BR2_PACKAGE_BTOP					# htop alternative
 	select BR2_PACKAGE_MOKUTIL				if BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY # mokutil machine owner key utility
@@ -721,8 +720,10 @@ config BR2_PACKAGE_BATOCERA_HOMEBREW_SYSTEMS
 	select BR2_PACKAGE_BATOCERA_PYGAME	if !BR2_PACKAGE_BATOCERA_TARGET_H3
 
 	# RPG engine : Solarus
-# $$$ batocera-luajit (aarch64 can target x86_64, not bcm2836 due to ia32 (-m32) depends on gcc-multilib)
-	select BR2_PACKAGE_SOLARUS_ENGINE	if !BR2_riscv # LuajIT does not support riscv ?
+	#  LuajIT does not support riscv ?
+	#  batocera-luajit (aarch64 can target x86_64, not bcm2836 due to ia32 (-m32) depends on gcc-multilib)
+	select BR2_PACKAGE_SOLARUS_ENGINE	if !BR2_riscv && \
+						   !(BR2_PACKAGE_BATOCERA_TARGET_BCM2836 && BR2_HOSTARCH = "aarch64")
 
 	# RPG engine : EasyRPG / RPG MAker
 	select BR2_PACKAGE_EASYRPG_PLAYER	# standalone
